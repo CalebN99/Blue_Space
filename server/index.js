@@ -13,7 +13,7 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.json())
 
 mongoose.set('strictQuery', true);
-mongoose.connect(process.env, {useNewUrlParser: true}, () => {
+mongoose.connect(process.env.DB_CONNECTION, {useNewUrlParser: true}, () => {
     console.log("Successful Connection to MongoDB")
 })
 
