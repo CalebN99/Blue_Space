@@ -10,11 +10,12 @@ import {
     bugs: [],
     loading: false,
     loggedIn: false,
-  
+    userAlreadyExists: false,
     auth: (a = initialState) => {
       if (a.user.user.length > 0) {
         return {
           loadingIn: true,
+       
         };
       }
     },
@@ -24,6 +25,14 @@ import {
   export default function (state = initialState, action) {
     switch (action.type) {
       case CREATE_USER:
+        console.log("CREATE_USER")
+        if (action.payload === "User already exists") {
+
+          return {
+            userAlreadyExists: true,
+            ...state
+          };
+        }
         return {
           ...state
         };
@@ -42,7 +51,7 @@ import {
             break;
         default:
             return {
-             ...state,
+              ...state,
             };
     //   case CREATE_ACCOUNT:
     //     return {

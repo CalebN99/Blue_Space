@@ -4,6 +4,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createUser } from "../actions/itemActions.js";
 
+import { Provider } from "react-redux";
+import store from "../store";
+
 class Home extends Component {
 
   constructor(props) {
@@ -14,10 +17,18 @@ class Home extends Component {
     };
   }
 
-  handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
+  handleUsernameChange = event => {
+    // eslint-disable-next-line react/no-direct-mutation-state
+    this.state.username = event.target.value;
     event.preventDefault();
   };
+
+  handlePasswordChange = event => {
+    // eslint-disable-next-line react/no-direct-mutation-state
+    this.state.password = event.target.value;
+    event.preventDefault();
+  };
+
 
 
   handleSubmit = event => {
@@ -34,20 +45,22 @@ class Home extends Component {
   render() {
 
     return (
-      <div className="Home">
+      <Provider store={store}>
+              <div className="Home">
           <h1>Welcome to Blue Space {":)"} </h1> 
           <div className='loginContainer'>
               <h3>Login</h3>
               <form onSubmit={this.handleSubmit}>
               
                   <input type="text" className="form-control" placeholder="Username *"
-                   value={this.state.username}
-                   onChange={this.handleChange}></input>
+              
+                   onChange={this.handleUsernameChange}></input>
                   <br/>
-    
+                  {console.log("Exists? " + this.props.userAlreadyExists)}
+            
                   <input type="text" className="form-control" placeholder="Password *"
-                   value={this.state.password}
-                   onChange={this.handleChange}></input>
+              
+                   onChange={this.handlePasswordChange}></input>
                   <br/>
   
                   <button type="submit">Login</button>
@@ -56,6 +69,8 @@ class Home extends Component {
               </form>
           </div>
       </div>
+      </Provider>
+
     
     );
   }
@@ -63,7 +78,8 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  userAlreadyExists: state.userAlreadyExists
 });
 
 export default connect(mapStateToProps, { createUser })(Home);

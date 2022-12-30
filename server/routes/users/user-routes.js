@@ -12,20 +12,28 @@ router.get('/', (req, res) => {
 });
 
 router.post('/generateUser', async (req, res) => {
-    console.log(req.body)
-    const user = new User({
-        username: req.body.username,
-        password: req.body.password
-    });
-    console.log(user);
 
-    await user.save()
-    .then(data => {
-        res.json(data)
+    User.findOne({username: req.body.username}, (err, data) => {
+        if (data == null) {
+            console.log("Creating User")
+            const user = new User({
+                username: req.body.username,
+                password: req.body.password
+            });
+    
+             user.save()
+            .then(data => {
+                res.json(data)
+            })
+            .catch(err => {
+                res.json(err);
+            })
+        } else {
+            res.send("User already exists")
+        }
     })
-    .catch(err => {
-        res.json(err);
-    })
+  
+  
 });
 
 
