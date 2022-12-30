@@ -5,12 +5,8 @@ import {
 //   import { startSession } from "mongoose";
   
   const initialState = {
-    items: [],
     user: [],
-    bugs: [],
-    loading: false,
-    loggedIn: false,
-    userAlreadyExists: false,
+    userAlreadyExists: "exists",
     auth: (a = initialState) => {
       if (a.user.user.length > 0) {
         return {
@@ -27,7 +23,6 @@ import {
       case CREATE_USER:
         console.log("CREATE_USER")
         if (action.payload === "User already exists") {
-
           return {
             userAlreadyExists: true,
             ...state
@@ -53,7 +48,12 @@ import {
             return {
               ...state,
             };
-    //   case CREATE_ACCOUNT:
+    }
+  }
+
+
+
+      //   case CREATE_ACCOUNT:
     //     return {
     //       ...state,
     //     };
@@ -105,6 +105,4 @@ import {
     //       ...state,
     //       bugs: state.bugs.filter((bug) => bug._id !== action.payload),
     //     };
-    }
-  }
   
