@@ -1,9 +1,9 @@
 import './App.css';
 import React, { Component } from "react";
 import { Routes, Route } from 'react-router-dom';
-import { Home } from './components/Home.js';
+import Home from './components/Home';
 import { CreateAccount } from './components/CreateAccount';
-import { Provider } from "react-redux";
+
 class App extends Component {
 
   render() {

@@ -13,14 +13,14 @@ export class CreateAccount extends Component {
           <form>
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               placeholder="New Username *"
             ></input>
             <br />
   
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               placeholder="New Password *"
             ></input>
             <br />
