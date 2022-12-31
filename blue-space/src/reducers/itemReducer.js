@@ -6,7 +6,8 @@ import {
   
   const initialState = {
     user: [],
-    userAlreadyExists: "exists",
+    userAlreadyExists: false,
+    loggedIn: false,
     auth: (a = initialState) => {
       if (a.user.user.length > 0) {
         return {
@@ -32,6 +33,7 @@ import {
           ...state
         };
         case USER_LOGIN:
+          console.log("USER_LOGIN")
             if (action.payload !== "") {
                 return {
                  ...state,

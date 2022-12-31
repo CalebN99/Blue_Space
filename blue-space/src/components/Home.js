@@ -1,14 +1,14 @@
-import "../styles/Home.css";
+import "../styles/Home.css"
 import { Link } from 'react-router-dom';
-import React, { Component } from "react";
+import React, { Component } from "react"
+
 import { connect } from "react-redux";
-import { createUser } from "../actions/itemActions.js";
+import { login } from "../actions/itemActions.js";
 
 import { Provider } from "react-redux";
 import store from "../store";
 
 class Home extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -29,50 +29,53 @@ class Home extends Component {
     event.preventDefault();
   };
 
-
-
+  
   handleSubmit = event => {
-    console.log("Submit")
-    const newUser = {
+    console.log("Login")
+    const user = {
       username: this.state.username,
       password: this.state.password
     };
 
-    this.props.createUser(newUser);
+    this.props.login(user);
     event.preventDefault();
   };
 
   render() {
-
     return (
       <Provider store={store}>
-              <div className="Home">
-          <h1>Welcome to Blue Space {":)"} </h1> 
-          <div className='loginContainer'>
-              <h3>Login</h3>
-              <form onSubmit={this.handleSubmit}>
-              
-                  <input type="text" className="form-control" placeholder="Username *"
-              
-                   onChange={this.handleUsernameChange}></input>
-                  <br/>
-                  {console.log("Exists? " + this.props.userAlreadyExists)}
-            
-                  <input type="text" className="form-control" placeholder="Password *"
-              
-                   onChange={this.handlePasswordChange}></input>
-                  <br/>
+        <div class="Home">
+        <h1>Welcome to Blue Space {":)"} </h1> 
+        <div class="loginContainer">
+          <h3>Login</h3>
+          <form onSubmit={this.handleSubmit}>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Username *"
+              onChange={this.handleUsernameChange}
+            ></input>
+            <br />
   
-                  <button type="submit">Login</button>
-                  <Link to="/createAccount"><p>create an account</p></Link>
-                 
-              </form>
-          </div>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Password *"
+              onChange={this.handlePasswordChange}
+            ></input>
+            <br />
+  
+            <button type="submit">Create</button>
+            <Link to="/createAccount">
+              <p>Already have an account?</p>
+            </Link>
+          </form>
+        </div>
       </div>
-      </Provider>
 
-    
-    );
+
+      </Provider>
+          );
   }
 
 }
@@ -82,4 +85,4 @@ const mapStateToProps = state => ({
   userAlreadyExists: state.userAlreadyExists
 });
 
-export default connect(mapStateToProps, { createUser })(Home);
+export default connect(mapStateToProps, { login })(Home);

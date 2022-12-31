@@ -31,10 +31,18 @@ router.post('/generateUser', async (req, res) => {
         } else {
             res.send("User already exists")
         }
-    })
-  
-  
+    })  
 });
+
+router.post('/login', async (req, res) => {
+    User.findOne({username: req.body.username}, (err, user) => {
+        console.log("user: " , user)
+        user.comparePassword(req.body.password, function(err, isMatch) {
+            if (err) throw err;
+            res.json(data);
+        });
+    })
+})
 
 
 
