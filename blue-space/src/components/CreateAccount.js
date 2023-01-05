@@ -40,6 +40,8 @@ class CreateAccount extends Component {
 
     this.props.createUser(newUser);
     event.preventDefault();
+
+    console.log("prop: ", this.props.userAlreadyExists)
   };
 
   render() {
@@ -55,15 +57,20 @@ class CreateAccount extends Component {
                   <input type="text" className="form-control" placeholder="New Username *"
               
                    onChange={this.handleUsernameChange}></input>
-                  <br/>
-                  {console.log("Exists? " + this.props.userAlreadyExists)}
+                     {
+              this.props.userAlreadyExists ? (
+                  <p>User already exists</p>
+              ) : (
+                <br/>
+              )
+            }
             
                   <input type="text" className="form-control" placeholder="New Password *"
               
                    onChange={this.handlePasswordChange}></input>
                   <br/>
   
-                  <button type="submit">Login</button>
+                  <button type="submit">Create</button>
                   <Link to="/"><p>Already have an account?</p></Link>
                  
               </form>
@@ -79,7 +86,7 @@ class CreateAccount extends Component {
 
 const mapStateToProps = state => ({
   user: state.user,
-  userAlreadyExists: state.userAlreadyExists
+  userAlreadyExists: state.user.userAlreadyExists
 });
 
 export default connect(mapStateToProps, { createUser })(CreateAccount);

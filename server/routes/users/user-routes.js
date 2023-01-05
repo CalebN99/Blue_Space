@@ -37,10 +37,20 @@ router.post('/generateUser', async (req, res) => {
 router.post('/login', async (req, res) => {
     User.findOne({username: req.body.username}, (err, user) => {
         console.log("user: " , user)
-        user.comparePassword(req.body.password, function(err, isMatch) {
-            if (err) throw err;
-            res.json(data);
-        });
+        if (user !== null) {
+            user.comparePassword(req.body.password, function(err, isMatch) {
+                if (isMatch) {
+                    res.json(user);
+                } 
+                else if (!isMatch) {
+                    res.send(false);
+                }
+                if (err) throw err;
+            });
+        } else {
+            res.send(false);
+        }
+  
     })
 })
 

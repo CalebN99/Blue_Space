@@ -1,5 +1,5 @@
 import "../styles/Portal.css"
-import { Link } from 'react-router-dom';
+import { Link, Navigate} from 'react-router-dom';
 import React, { Component } from "react"
 
 import { connect } from "react-redux";
@@ -41,12 +41,21 @@ class Portal extends Component {
     event.preventDefault();
   };
 
+  componentDidMount = () => {
+    console.log("User Props in portal: ", this.props.user)
+  }
+
   render() {
+    if (this.props.user.user.length === 0) {
+  
+      return <Navigate to="/" />
+    }
     return (
       <Provider store={store}>
         <div className="portal">
         <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
               <div class="position-sticky">
+                <h4>{this.props.user.user.username}</h4>
                 <div class="list-group list-group-flush mx-3 mt-4">
                   <a href="#" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
                     <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Main dashboard</span>

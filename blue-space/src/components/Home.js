@@ -1,6 +1,7 @@
 import "../styles/Home.css"
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import React, { Component } from "react"
+
 
 import { connect } from "react-redux";
 import { login } from "../actions/itemActions.js";
@@ -39,9 +40,17 @@ class Home extends Component {
 
     this.props.login(user);
     event.preventDefault();
+    console.log("loggedIn? :", this.props.loggedIn)
   };
 
+  componentDidMount = () => {
+    console.log("loggedIn? :", this.props.loggedIn)
+  }
+
   render() {
+    if (this.props.loggedIn) {
+      return <Navigate to="/portal" />;
+    }
     return (
       <Provider store={store}>
         <div class="Home">
@@ -63,11 +72,17 @@ class Home extends Component {
               placeholder="Password *"
               onChange={this.handlePasswordChange}
             ></input>
-            <br />
+                       {
+              this.props.incorrectCreds ? (
+                  <p id="incorrectLogin">Username or Password is incorrect</p>
+              ) : (
+                <br/>
+              )
+            }
   
-            <button type="submit">Create</button>
+            <button type="submit">Login</button>
             <Link to="/createAccount">
-              <p>Already have an account?</p>
+              <p>Create an Account</p>
             </Link>
           </form>
         </div>
@@ -82,7 +97,9 @@ class Home extends Component {
 
 const mapStateToProps = state => ({
   user: state.user,
-  userAlreadyExists: state.userAlreadyExists
+  userAlreadyExists: state.user.userAlreadyExists,
+  loggedIn: state.user.loggedIn,
+  incorrectCreds: state.user.incorrectCreds
 });
 
 export default connect(mapStateToProps, { login })(Home);

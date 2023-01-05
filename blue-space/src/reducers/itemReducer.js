@@ -8,6 +8,7 @@ import {
     user: [],
     userAlreadyExists: false,
     loggedIn: false,
+    incorrectCreds: false,
     auth: (a = initialState) => {
       if (a.user.user.length > 0) {
         return {
@@ -23,26 +24,26 @@ import {
     switch (action.type) {
       case CREATE_USER:
         console.log("CREATE_USER")
+        console.log(action.payload)
         if (action.payload === "User already exists") {
           return {
             userAlreadyExists: true,
-            ...state
           };
         }
         return {
-          ...state
+          userAlreadyExists: false,
         };
         case USER_LOGIN:
           console.log("USER_LOGIN")
-            if (action.payload !== "") {
+            if (action.payload !== false) {
                 return {
                  ...state,
                 user: action.payload,
                 loggedIn: true,
                 };
-            } else if (action.payload === "") {
+            } else if (action.payload === false) {
                 return {
-                 ...state,
+                 incorrectCreds: true
                 };
             }
             break;
