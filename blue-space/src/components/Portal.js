@@ -8,12 +8,15 @@ import { login } from "../actions/itemActions.js";
 import { Provider } from "react-redux";
 import store from "../store";
 
+import CreateForm from "./CreateForm";
+
 class Portal extends Component {
   constructor(props) {
     super(props);
     this.state = {
      username: "",
-     password: ""
+     password: "",
+     display: "default"
     };
   }
 
@@ -55,37 +58,40 @@ class Portal extends Component {
         <div className="portal">
         <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
               <div class="position-sticky">
-                <h4>{this.props.user.user.username}</h4>
+                <h3>{this.props.user.user.username}</h3>
+                <h4>Forms</h4>
                 <div class="list-group list-group-flush mx-3 mt-4">
-                  <a href="#" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-                    <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Main dashboard</span>
-                  </a>
-                  <a href="#" class="list-group-item list-group-item-action py-2 ripple active">
-                    <i class="fas fa-chart-area fa-fw me-3"></i><span>Webiste traffic</span>
-                  </a>
-                  <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
-                      class="fas fa-lock fa-fw me-3"></i><span>Password</span></a>
-                  <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
-                      class="fas fa-chart-line fa-fw me-3"></i><span>Analytics</span></a>
-                  <a href="#" class="list-group-item list-group-item-action py-2 ripple">
-                    <i class="fas fa-chart-pie fa-fw me-3"></i><span>SEO</span>
-                  </a>
-                  <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
-                      class="fas fa-chart-bar fa-fw me-3"></i><span>Orders</span></a>
-                  <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
-                      class="fas fa-globe fa-fw me-3"></i><span>International</span></a>
-                  <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
-                      class="fas fa-building fa-fw me-3"></i><span>Partners</span></a>
-                  <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
-                      class="fas fa-calendar fa-fw me-3"></i><span>Calendar</span></a>
-                  <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
-                      class="fas fa-users fa-fw me-3"></i><span>Users</span></a>
-                  <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
-                      class="fas fa-money-bill fa-fw me-3"></i><span>Sales</span></a>
+                  <div href="#" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                    <p class="fas fa-tachometer-alt fa-fw me-3"></p><span>Main dashboard</span>
+                  </div>
+        
                 </div>
               </div>
+              
             </nav>
+
+            <div className="topNav">
+              <p onClick={() => {
+                this.setState({display: "newForm"})
+              }}>Create new form +</p>
+
+            </div>
             
+           {
+              (() => {
+                if (this.state.display === "newForm") {
+                  return <CreateForm />
+                } else {
+                  return <h1>Welcome to your Blue Space</h1>
+                }
+            
+              })()
+            }
+
+      
+           
+            
+          
         </div>
 
       </Provider>

@@ -63,6 +63,7 @@ class Home extends Component {
               className="form-control"
               placeholder="Username *"
               onChange={this.handleUsernameChange}
+              required
             ></input>
             <br />
   
@@ -71,6 +72,7 @@ class Home extends Component {
               className="form-control"
               placeholder="Password *"
               onChange={this.handlePasswordChange}
+              required
             ></input>
                        {
               this.props.incorrectCreds ? (

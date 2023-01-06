@@ -1,0 +1,35 @@
+.createForm {
+    width: 40vw;
+    margin: 0 auto;
+    padding-top: 10em;
+}
+
+.descLabel {
+    font-weight: 500;
+    font-size: 1.2em;
+}
+
+.newForm {
+    margin-top: 2em;
+}
+
+.button {
+ 
+    background-color: #1560bd;
+    border: none;
+    color: white;
+    width: 5em;
+    font-size: 1em;
+    padding: .5em;
+    border-radius: 1em;
+    display: block;
+    margin: 0 auto;
+    transition: all ease-out .25s;
+    font-size: 1.15em;
+    font-weight: 400;
+    margin-top: 1em;
+}
+
+.button:hover {
+    width: 6em;
+}

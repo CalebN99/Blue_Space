@@ -1,4 +1,4 @@
-import "../styles/Home.css";
+import "../styles/CreateForm.css";
 import { Link } from 'react-router-dom';
 import React, { Component } from "react";
 import { connect } from "react-redux";
@@ -7,25 +7,26 @@ import { createUser } from "../actions/itemActions.js";
 import { Provider } from "react-redux";
 import store from "../store";
 
-class CreateAccount extends Component {
+class CreateForm extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-     username: "",
-     password: ""
+     formName: "",
+     formDescription: ""
+
     };
   }
 
-  handleUsernameChange = event => {
+  handleFormNameChange = event => {
     // eslint-disable-next-line react/no-direct-mutation-state
-    this.state.username = event.target.value;
+    this.state.formName = event.target.value;
     event.preventDefault();
   };
 
-  handlePasswordChange = event => {
+  handleDescriptionChange = event => {
     // eslint-disable-next-line react/no-direct-mutation-state
-    this.state.password = event.target.value;
+    this.state.formDescription = event.target.value;
     event.preventDefault();
   };
 
@@ -48,31 +49,28 @@ class CreateAccount extends Component {
 
     return (
       <Provider store={store}>
-        <div className="createAccount">
-          <h1>Welcome to Blue Space {":)"} </h1> 
-          <div className='loginContainer'>
-              <h3>Create an Account</h3>
-              <form onSubmit={this.handleSubmit}>
+        <div className="createForm">
+          <div className='newFormContainer'>
+              <h2>New Form</h2>
+              <form class="newForm" onSubmit={this.handleSubmit}>
               
-                  <input type="text" className="form-control" placeholder="New Username *"
+              <label className="descLabel">Form Name: </label>
+                  <input type="text" className="form-control" placeholder="New Form Name *"
               
-                   onChange={this.handleUsernameChange} required></input>
-                     {
+                   onChange={this.handleFormNameChange} required></input>
+                     {/* {
               this.props.userAlreadyExists ? (
                   <p>User already exists</p>
               ) : (
                 <br/>
               )
-            }
+            } */}
             
-                  <input type="text" className="form-control" placeholder="New Password *"
-              
-                   onChange={this.handlePasswordChange} required></input>
                   <br/>
+                  <label className="descLabel">Description: </label>
+                  <textarea rows="4" cols="50" className="form-control" placeholder="Description *" onChange={this.handleDescriptionChange} required></textarea>
   
-                  <button type="submit">Create</button>
-                  <Link to="/"><p>Already have an account?</p></Link>
-                 
+                  <button className="button" type="submit">Create</button>
               </form>
           </div>
       </div>
@@ -89,4 +87,4 @@ const mapStateToProps = state => ({
   userAlreadyExists: state.user.userAlreadyExists
 });
 
-export default connect(mapStateToProps, { createUser })(CreateAccount);
+export default connect(mapStateToProps, { createUser })(CreateForm);
